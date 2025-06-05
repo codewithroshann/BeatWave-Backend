@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
-const connectDB = mongoose.connect('mongodb://localhost:27017/BeatStore')
-.then(() => console.log('Connected to MongoDB'))
-.catch((error) => console.log(error))
+import dotenv from "dotenv";
+dotenv.config();
+const mongodbURL = process.env.MONGODB_URL;
+const connectDB = mongoose
+  .connect(mongodbURL)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((error) => console.log(error));
 
-export default connectDB
+export default connectDB;
