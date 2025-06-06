@@ -35,7 +35,7 @@ app.use(cookieParser());
 dotenv.config();
 app.use(
   cors({
-    origin: "http://localhost:3000", // Match frontend
+    origin: "https://beat-wave-pink.vercel.app/", // Match frontend
     credentials: true,
   })
 );
