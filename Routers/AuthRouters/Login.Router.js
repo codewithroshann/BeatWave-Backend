@@ -30,9 +30,9 @@ router.post("/user/login", async (req, res) => {
             process.env.JWT_SECRET
           );
           res.cookie("token", token, {
-            httpOnly: true, // still recommended for security
-            secure: false, // allow over HTTP (only for development)
-            sameSite: "lax", // can also use 'strict' or 'none'
+            httpOnly: true,
+            secure: true,            // Required for HTTPS
+            sameSite: "none",        // Required for cross-origin cookies
             maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
           });
           const cookie = jwt.verify(token, process.env.JWT_SECRET);
