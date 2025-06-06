@@ -36,7 +36,8 @@ const BeatsSchema = new Schema({
   },
 description:{
   type:String,
-  required:true
+  required:true,
+  default: "No description available"
 },
 
   createdAt:{

@@ -4,7 +4,7 @@ import User from "../../Models/User.js";
 import islogedIn from "../../Middleware/UserAuthentication.js";
 const router = express.Router();
 
-router.post("/update-profile",islogedIn, async (req, res) => {
+router.post("/update-profile", islogedIn, async (req, res) => {
   const token = req.cookies.token;
   if (!token)
     return res
@@ -15,7 +15,6 @@ router.post("/update-profile",islogedIn, async (req, res) => {
   const updatedCookie = { ...cookie, gender, phone, fullName: name };
   const newToken = jwt.sign(updatedCookie, "rock444");
   const existingUser = await User.findOne({ phone: phone });
-  console.log(existingUser);
   if (existingUser) {
     if (existingUser._id != cookie.id)
       return res

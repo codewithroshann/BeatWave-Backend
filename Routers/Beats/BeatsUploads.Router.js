@@ -34,7 +34,7 @@ router.post(
           console.log(error, "audio upload error");
         });
 
-      const beatInfoFile = new BeatsCollection({
+      const beatInfoFile = await BeatsCollection.create({
         title,
         producer,
         genre,
@@ -44,7 +44,6 @@ router.post(
         thumbnail: thumbnailUploadResult.secure_url,
         audio: beatUploadResult.secure_url,
       });
-      await beatInfoFile.save();
       res.status(200).json({
         ok: true,
         redirectUrl: "/",
@@ -52,7 +51,10 @@ router.post(
         type: "success",
       });
     } catch (error) {
-      return res.status(400).json("Somthing Went Wrong!");
+      console.log(error);
+      return res
+        .status(400)
+        .json({ message: "Something went wrong!", type: "error" });
     }
     if (req.files) {
       fs.unlink(`${beatFile.path}`, (err) => {
