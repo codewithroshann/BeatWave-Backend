@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv"
+dotenv.config()
 const islogedIn = async (req, res, next) =>{
     const token = req.cookies.token;
       if (token == "" || !token) {
@@ -9,7 +11,7 @@ const islogedIn = async (req, res, next) =>{
         type: "error",
       });
     }
-    const cookie = jwt.verify(req.cookies.token, "rock444");
+    const cookie = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
   
     next();
   }

@@ -3,6 +3,9 @@ import BeatsCollection from '../../Models/Beats.js';
 import jwt from 'jsonwebtoken';
 import cartCollection from '../../Models/Cart.js';
 import islogedIn from '../../Middleware/UserAuthentication.js';
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const router = express.Router();
 
@@ -15,7 +18,7 @@ router.post("/:id",islogedIn, async (req, res) => {
       if (!beat) {
         return res.status(400).json({ message: "Beat Not Found!" });
       }
-      const cookie = jwt.verify(token, "rock444");
+      const cookie = jwt.verify(token, process.env.JWT_SECRET);
       if (!cookie) {
         return res.status(400).json({ message: "User Not Found!" });
       }

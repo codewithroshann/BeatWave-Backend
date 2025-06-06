@@ -2,6 +2,10 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import User from "../../Models/User.js";
 import islogedIn from "../../Middleware/UserAuthentication.js";
+import dotenv from "dotenv"
+
+dotenv.config()
+
 const router = express.Router();
 
 router.post("/update-profile", islogedIn, async (req, res) => {
@@ -11,9 +15,9 @@ router.post("/update-profile", islogedIn, async (req, res) => {
       .status(400)
       .json({ message: "First Login To Access!", type: "error" });
   const { phone, gender, name } = req.body;
-  const cookie = jwt.verify(token, "rock444");
+  const cookie = jwt.verify(token, process.env.JWT_SECRET);
   const updatedCookie = { ...cookie, gender, phone, fullName: name };
-  const newToken = jwt.sign(updatedCookie, "rock444");
+  const newToken = jwt.sign(updatedCookie, process.env.JWT_SECRET);
   const existingUser = await User.findOne({ phone: phone });
   if (existingUser) {
     if (existingUser._id != cookie.id)

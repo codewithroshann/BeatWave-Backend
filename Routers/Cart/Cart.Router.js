@@ -2,6 +2,9 @@ import express from "express"
 import jwt from "jsonwebtoken";
 import User from "../../Models/User.js";
 import cartCollection from "../../Models/Cart.js";
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const router = express.Router();
 
@@ -11,7 +14,7 @@ router.get("/cart", async (req, res) => {
       return res
         .status(400)
         .json({ message: "First Login To Access Cart!", type: "error" });
-    const cookie = jwt.verify(token, "rock444");
+    const cookie = jwt.verify(token, process.env.JWT_SECRET);
     try {
       const user = await User.findOne({ _id: cookie.id });
       if (!user)

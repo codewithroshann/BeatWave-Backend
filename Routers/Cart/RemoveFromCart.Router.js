@@ -2,9 +2,10 @@ import express from "express"
 import cartCollection from "../../Models/Cart.js";
 import jwt from "jsonwebtoken";
 import islogedIn from "../../Middleware/UserAuthentication.js";
+import dotenv from "dotenv"
 
+dotenv.config()
 const router = express.Router();
-
 router.delete("/:id",islogedIn, async (req, res) => {
     try {
       const { id } = req.params;
@@ -15,7 +16,7 @@ router.delete("/:id",islogedIn, async (req, res) => {
           .status(400)
           .json({ message: "First Login To Access Cart!", type: "error" });
   
-      const cookie = jwt.verify(token, "rock444");
+      const cookie = jwt.verify(token, process.env.JWT_SECRET);
       const updatedCart = await cartCollection.findOneAndUpdate(
         { userId: cookie.id },
         { $pull: { beats: id } }, // remove beatId from 'beats' array

@@ -2,6 +2,9 @@ import express from "express";
 import bcrypt from "bcrypt";
 import User from "../../Models/User.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv"
+
+dotenv.config()
 const router = express.Router();
 
 router.post("/user/login", async (req, res) => {
@@ -24,7 +27,7 @@ router.post("/user/login", async (req, res) => {
               role: findUser.role,
               date: findUser.data,
             },
-            "rock444"
+            process.env.JWT_SECRET
           );
           res.cookie("token", token, {
             httpOnly: true, // still recommended for security
@@ -32,7 +35,7 @@ router.post("/user/login", async (req, res) => {
             sameSite: "lax", // can also use 'strict' or 'none'
             maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
           });
-          const cookie = jwt.verify(token, "rock444");
+          const cookie = jwt.verify(token, process.env.JWT_SECRET);
           return res.status(200).json({
             redirectUrl: "/",
             message: "Login Successfully!",

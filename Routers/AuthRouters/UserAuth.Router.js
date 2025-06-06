@@ -1,6 +1,9 @@
 import express from "express"
 import jwt from "jsonwebtoken";
 import cartCollection from "../../Models/Cart.js";
+import dotenv from "dotenv"
+
+dotenv.config()
 
 const router = express.Router();
 
@@ -9,7 +12,7 @@ router.get("/check-auth", async (req, res) => {
    
     if (token == "" || !token) return res.status(200).json({ isLogedIn: false });
     try {
-      const cookie = jwt.verify(req.cookies.token, "rock444");
+      const cookie = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
       const cart = await cartCollection.findOne({ userId: cookie.id });
       if (!cart)
         return res.status(200).json({ isLogedIn: true, user: cookie, cart: [] });
