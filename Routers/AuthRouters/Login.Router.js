@@ -26,14 +26,14 @@ router.post("/user/login", async (req, res) => {
             },
             "rock444"
           );
-          res.cookie("token", token,{
+          res.cookie("token", token, {
             httpOnly: true, // still recommended for security
             secure: false, // allow over HTTP (only for development)
             sameSite: "lax", // can also use 'strict' or 'none'
             maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days
           });
           const cookie = jwt.verify(token, "rock444");
-          res.status(200).json({
+          return res.status(200).json({
             redirectUrl: "/",
             message: "Login Successfully!",
             type: "success",
@@ -44,10 +44,10 @@ router.post("/user/login", async (req, res) => {
         }
       })
       .catch((err) => {
-        res.status(500).json({ message: "something went wrong" });
+        return res.status(500).json({ message: "something went wrong" });
       });
   } catch (error) {
-    res.status(500).json({ message: " OOPS! something went wrong" });
+    return res.status(500).json({ message: " OOPS! something went wrong" });
   }
 });
 
