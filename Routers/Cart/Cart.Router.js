@@ -10,6 +10,7 @@ const router = express.Router();
 
 router.get("/cart", async (req, res) => {
   const token = req.cookies.token;
+  console.log(token)
   if (!token || token === "")
     return res
       .status(400)
