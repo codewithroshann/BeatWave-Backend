@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.get("/check-auth", async (req, res) => {
     const token = req.cookies.token;
-   
+    
     if (token == "" || !token) return res.status(200).json({ isLogedIn: false });
     try {
       const cookie = jwt.verify(req.cookies.token, process.env.JWT_SECRET);
