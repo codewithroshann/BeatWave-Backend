@@ -27,6 +27,7 @@ import FilterBeats from "./Routers/Explore/FilterBeats.js";
 import GetAdminBeats from "./Routers/AdminPanel/GetAdminBeats.js";
 import DeleteAdminBeat from "./Routers/AdminPanel/DeleteAdminBeat.js";
 import UpdateBeat from "./Routers/AdminPanel/UpdateBeat.js";
+import GetCategoryBeats from "./Routers/Beats/GetCategoryBeats.js"
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -91,6 +92,9 @@ app.use("/relese", RelesedBeats);
 app.use("/get", GetSearchBeat);
 //Filter Beats
 app.use("/filter", FilterBeats);
+
+//GET CATEGORY BEATS
+app.use("/explore", GetCategoryBeats)
 
 //GET ADMIN PANNEL BEAT FOR CRUD
 app.use("/admin", GetAdminBeats);
