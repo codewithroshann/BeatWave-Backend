@@ -9,6 +9,7 @@ import { v2 as cloudinary } from "cloudinary";
 //Config files
 import connectDB from "./Configs/dataBase.js";
 import cloudinaryConfig from "./Configs/cloudinary.config.js";
+
 //folders inside the project
 import SignupRouter from "./Routers/AuthRouters/Signup.Router.js";
 import LoginRouter from "./Routers/AuthRouters/Login.Router.js";
@@ -28,6 +29,11 @@ import GetAdminBeats from "./Routers/AdminPanel/GetAdminBeats.js";
 import DeleteAdminBeat from "./Routers/AdminPanel/DeleteAdminBeat.js";
 import UpdateBeat from "./Routers/AdminPanel/UpdateBeat.js";
 import GetCategoryBeats from "./Routers/Beats/GetCategoryBeats.js"
+import ContactUs from "./Routers/Contact-us/ConatctUs.js"
+//payment routes
+import CashfreePayment from "./Routers/Payment/CashfreePayment.js"
+import CashfreeVerify from "./Routers/Payment/CashfreeVerify.js"
+
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -100,6 +106,15 @@ app.use("/explore", GetCategoryBeats)
 app.use("/admin", GetAdminBeats);
 app.use("/admin", DeleteAdminBeat);
 app.use("/admin", UpdateBeat);
+//CANTACT-US
+app.use(ContactUs)
+
+//CASHFREE PAYMENT
+app.use("/checkout", CashfreePayment)
+app.use("/checkout", CashfreeVerify)
+
+
+
 
 app.listen(port, () => {
   console.log(`server is running on port: ${port}`);
