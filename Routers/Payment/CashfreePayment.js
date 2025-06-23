@@ -9,7 +9,7 @@ const router = express.Router();
 const cashfree = new Cashfree(
   CFEnvironment.SANDBOX,
   process.env.CASHFREE_APPID,
-  process.env.CASHFREE_SECRET
+  process.env.CASHFREE_SECRET_KEY
 );
 
 function getOrderid() {
@@ -20,17 +20,28 @@ function getOrderid() {
   return orderId.substr(0, 12);
 }
 
-router.get("/payment", async (req, res) => {
+router.post("/payment", async (req, res) => {
+  const token = req.cookies.token;
+ const {id,phone,fullName,email}= req.body.userData
+ const {price} = req.body
+  const phoneNum = phone.toString()
+  if (!token) {
+    return res.status(401).json({
+      message: "Unauthorized LogIn First!",
+      type: "error",
+      redirectUrl: "/auth/user/login",
+    });
+  }
   try {
     let request = {
-      order_amount: 1,
+      order_amount: price,
       order_currency: "INR",
       order_id: await getOrderid(),
       customer_details: {
-        customer_id: "walterwNrcMi",
-        customer_phone: "9999999999",
-        customer_name: "rock444",
-        customer_email: "rock@rock.com",
+        customer_id: id,
+        customer_phone: phoneNum,
+        customer_name: fullName,
+        customer_email: email,
       },
     };
     cashfree
