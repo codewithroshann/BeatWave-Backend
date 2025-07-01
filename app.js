@@ -30,9 +30,11 @@ import DeleteAdminBeat from "./Routers/AdminPanel/DeleteAdminBeat.js";
 import UpdateBeat from "./Routers/AdminPanel/UpdateBeat.js";
 import GetCategoryBeats from "./Routers/Beats/GetCategoryBeats.js"
 import ContactUs from "./Routers/Contact-us/ConatctUs.js"
+import BeatsDownload from "./Routers/Downloads/BeatsDownload.js"
 //payment routes
 import CashfreePayment from "./Routers/Payment/CashfreePayment.js"
 import CashfreeVerify from "./Routers/Payment/CashfreeVerify.js"
+import Purchases from "./Routers/PurchaseHistory/Purchases.js"
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -112,7 +114,10 @@ app.use(ContactUs)
 //CASHFREE PAYMENT
 app.use("/checkout", CashfreePayment)
 app.use("/checkout", CashfreeVerify)
+app.use("/api", Purchases)
+//download Routes
 
+app.use("/download", BeatsDownload);
 
 
 

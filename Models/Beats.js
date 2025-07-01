@@ -32,18 +32,23 @@ const BeatsSchema = new Schema({
   file: {
     type: String,
     required: true,
-    default:"MP3"
+    default: "MP3",
   },
-description:{
-  type:String,
-  required:true,
-  default: "No description available"
-},
+  description: {
+    type: String,
+    required: true,
+    default: "No description available",
+  },
+  licenseType: {
+    type: String,
+    required: true,
+    default: "Basic",
+  },
 
-  createdAt:{
-    type:Date,
-    default:Date.now()
-  }
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 const BeatsCollection = mongoose.model("Beat", BeatsSchema);
 export default BeatsCollection;

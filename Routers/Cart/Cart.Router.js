@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.get("/cart", async (req, res) => {
   const token = req.cookies.token;
-    if (!token || token === "")
+  if (!token || token === "")
     return res
       .status(400)
       .json({ message: "First Login To Access Cart!", type: "error" });

@@ -10,7 +10,7 @@ const cartSchema = mongoose.Schema({
     type:mongoose.Schema.Types.ObjectId,
     ref:"Beat"
   }
-  ]
+  ],
 });
 
 const cartCollection = mongoose.model("cart", cartSchema);
