@@ -7,7 +7,7 @@ dotenv.config();
 const router = express.Router();
 
 const cashfree = new Cashfree(
-  CFEnvironment.SANDBOX,
+ CFEnvironment.PRODUCTION, 
   process.env.CASHFREE_APPID,
   process.env.CASHFREE_SECRET_KEY
 );
