@@ -1,5 +1,6 @@
 import express from "express";
 import purchaseHistory from "../../Models/PurchaseHistory.js";
+import BeatsCollections from "../../Models/Beats.js";
 import { Cashfree, CFEnvironment } from "cashfree-pg";
 import dotenv from "dotenv";
 import cartCollection from "../../Models/Cart.js";
@@ -8,7 +9,7 @@ dotenv.config();
 const router = express.Router();
 
 const cashfree = new Cashfree(
-  CFEnvironment.SANDBOX,
+  CFEnvironment.PRODUCTION,
   process.env.CASHFREE_APPID,
   process.env.CASHFREE_SECRET_KEY
 );
@@ -40,6 +41,7 @@ router.post("/verify", async (req, res) => {
     const cart = await cartCollection.deleteOne({
       userId: customer_details.customer_id,
     });
+    await BeatsCollections.deleteMany({ _id: { $in: itemsId } }); 
 
     return res
       .status(200)
