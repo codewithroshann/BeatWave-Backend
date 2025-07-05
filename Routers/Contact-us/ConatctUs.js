@@ -8,7 +8,6 @@ const router = express.Router();
 
 router.post("/contact-us", async (req, res) => {
   const { name, email, subject, message } = req.body;
-
   // Create transport using Gmail or your SMTP provider
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -22,7 +21,7 @@ router.post("/contact-us", async (req, res) => {
     from: email,
     to:process.env.COMPANY_EMAIL,             // Where you want to receive messages
     subject: `New Contact: ${subject}`,
-    text: `Name: ${name}\nEmail: ${email}\nMessage:\n${message}`,
+    text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\nMessage:\n${message}`,
   };
   try {
     await transporter.sendMail(mailOptions);
