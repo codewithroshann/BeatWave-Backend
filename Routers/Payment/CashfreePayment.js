@@ -47,7 +47,7 @@ router.post("/payment", async (req, res) => {
     cashfree
       .PGCreateOrder(request)
       .then((response) => {
-        console.log(response.data)
+   
         return res.status(200).json(response.data);
       })
       .catch((error) => {
