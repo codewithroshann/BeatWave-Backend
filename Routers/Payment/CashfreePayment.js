@@ -7,7 +7,7 @@ dotenv.config();
 const router = express.Router();
 
 const cashfree = new Cashfree(
-  CFEnvironment.SANDBOX,
+  CFEnvironment.PRODUCTION,
   process.env.CASHFREE_APPID,
   process.env.CASHFREE_SECRET_KEY
 );
@@ -22,9 +22,9 @@ function getOrderid() {
 
 router.post("/payment", async (req, res) => {
   const token = req.cookies.token;
- const {id,phone,fullName,email}= req.body.userData
- const {price} = req.body
-  const phoneNum = phone.toString()
+  const { id, phone, fullName, email } = req.body.userData;
+  const { price } = req.body;
+  const phoneNum = phone.toString();
   if (!token) {
     return res.status(401).json({
       message: "Unauthorized LogIn First!",
@@ -47,6 +47,7 @@ router.post("/payment", async (req, res) => {
     cashfree
       .PGCreateOrder(request)
       .then((response) => {
+        console.log(response.data)
         return res.status(200).json(response.data);
       })
       .catch((error) => {
