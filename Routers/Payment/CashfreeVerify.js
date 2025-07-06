@@ -41,8 +41,7 @@ router.post("/verify", async (req, res) => {
     const cart = await cartCollection.deleteOne({
       userId: customer_details.customer_id,
     });
-    await BeatsCollections.deleteMany({ _id: { $in: itemsId } }); 
-
+    
     return res
       .status(200)
       .json({ data: response.data, redirectUrl: "/mypurchase" });
