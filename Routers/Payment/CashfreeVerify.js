@@ -22,7 +22,7 @@ router.post("/verify", async (req, res) => {
       return res
         .status(400)
         .json({ message: "Payment Cancelled!", type: "error" });
-    console.log(response.data)
+ 
     const {
       customer_details,
       order_status,
