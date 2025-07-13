@@ -4,6 +4,7 @@ import BeatsCollections from "../../Models/Beats.js";
 import { Cashfree, CFEnvironment } from "cashfree-pg";
 import dotenv from "dotenv";
 import cartCollection from "../../Models/Cart.js";
+import mongoose from "mongoose";
 dotenv.config();
 
 const router = express.Router();
@@ -38,9 +39,11 @@ router.post("/verify", async (req, res) => {
       status: order_status,
       purchaseAmmount: order_amount,
     });
-   const beat = await BeatsCollections.updateMany(
-      { _id: { $in: itemsId } },
+ const beatIds = itemsId.map(id => new mongoose.Types.ObjectId(id));     
+    const beat = await BeatsCollections.updateMany(
+      { _id: { $in: beatIds } },
       { $set: { isPurchased: true } }
+      
     );
     const cart = await cartCollection.deleteOne({
       userId: customer_details.customer_id,
