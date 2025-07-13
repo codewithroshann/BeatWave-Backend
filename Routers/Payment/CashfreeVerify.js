@@ -38,7 +38,10 @@ router.post("/verify", async (req, res) => {
       status: order_status,
       purchaseAmmount: order_amount,
     });
-
+   const beat = await BeatsCollections.updateMany(
+      { _id: { $in: itemsId } },
+      { $set: { isPurchased: true } }
+    );
     const cart = await cartCollection.deleteOne({
       userId: customer_details.customer_id,
     });
