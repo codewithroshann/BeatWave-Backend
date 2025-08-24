@@ -27,7 +27,7 @@ router.post("/user/signup", async (req, res) => {
         res.status(200).json({
           message: "User created successfully",
         type:"success",
-          redirectUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/auth/user/login`,
+          redirectUrl: `/auth/user/login`,
         });
       } catch (error) {
         console.log(error);
